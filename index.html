@@ -1,0 +1,39 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>NÖMÄD | Inferno Animated Overlay</title>
+<style>
+:root{color-scheme:dark;--intensity:1;--speed:1}*{box-sizing:border-box}html,body{width:100%;height:100%;margin:0;overflow:hidden;background:transparent!important}body{display:grid;place-items:center}.frame{position:relative;width:min(100vw,177.2824vh);aspect-ratio:1670/942;overflow:hidden;isolation:isolate;background:transparent;}
+.art{position:absolute;inset:0;width:100%;height:100%;object-fit:fill;pointer-events:none;z-index:3}
+/* All light effects are behind the original transparent PNG. */
+.light{position:absolute;pointer-events:none;z-index:1;mix-blend-mode:screen;filter:blur(1.2px);opacity:.7;animation:breath calc(4s / var(--speed)) ease-in-out infinite alternate}
+.skull{width:7%;height:9%;border-radius:50%;background:radial-gradient(ellipse,#fff6b8 0%,#ff3b00 12%,#ff1000 27%,transparent 70%);filter:blur(5px);opacity:.35;animation:eye calc(3.2s / var(--speed)) ease-in-out infinite alternate}
+.s1{left:10.2%;top:5.6%}.s2{right:10.2%;top:5.6%;animation-delay:-1.1s}.s3{left:5.4%;bottom:6.4%}.s4{right:5.4%;bottom:6.4%;animation-delay:-1.8s}
+.lava{left:27%;bottom:1%;width:46%;height:13%;background:radial-gradient(ellipse at 50% 100%,rgba(255,115,0,.7),rgba(255,24,0,.23) 42%,transparent 72%);filter:blur(12px);animation:lava calc(5s / var(--speed)) ease-in-out infinite alternate}
+.portal{left:45%;bottom:4%;width:10%;height:13%;background:radial-gradient(ellipse,#ffcf5b 0%,#ff5400 18%,rgba(255,20,0,.2) 48%,transparent 70%);filter:blur(8px);animation:eye calc(2.6s / var(--speed)) ease-in-out infinite alternate}
+.gem{left:47.9%;top:8%;width:4.2%;height:8%;background:radial-gradient(circle,#ffefb2 0%,#ff3b00 20%,transparent 68%);filter:blur(7px);animation:eye calc(3.6s / var(--speed)) ease-in-out infinite alternate}
+/* Tiny highlights positioned over decorative regions only, not the gameplay center. */
+.glint{position:absolute;z-index:4;pointer-events:none;width:1%;aspect-ratio:1;border-radius:50%;background:#fff6c9;box-shadow:0 0 7px 3px #ff5300,0 0 16px 6px #b80000;opacity:0;animation:twinkle calc(6s / var(--speed)) ease-in-out infinite}
+.g1{left:50%;top:1%;animation-delay:-1s}.g2{left:49.2%;top:11.5%;animation-delay:-3s}.g3{left:50%;bottom:2%;animation-delay:-4s}.g4{left:1%;top:30%;animation-delay:-2s}.g5{right:1%;top:30%;animation-delay:-5s}
+/* Logo sweep confined to a narrow top-center region; mask limits the highlight to bright letters. */
+.logo-sweep{position:absolute;z-index:4;left:38%;top:2%;width:24%;height:7%;pointer-events:none;overflow:hidden;mix-blend-mode:screen;opacity:.32;mask-image:url('nomad-frame.png');mask-size:416.6667% 1428.57%;mask-position:50% 2.15%;-webkit-mask-image:url('nomad-frame.png');-webkit-mask-size:416.6667% 1428.57%;-webkit-mask-position:50% 2.15%}
+.logo-sweep::after{content:"";position:absolute;top:-80%;left:-35%;height:260%;width:20%;transform:skewX(-20deg);background:linear-gradient(90deg,transparent,rgba(255,244,201,.9),transparent);animation:sweep calc(12s / var(--speed)) linear infinite}
+@keyframes eye{0%,25%{opacity:.12;transform:scale(.85)}55%{opacity:.7}100%{opacity:.3;transform:scale(1.12)}}@keyframes breath{from{opacity:.25}to{opacity:.8}}@keyframes lava{from{opacity:.3;transform:translateX(-1%) scale(1)}to{opacity:.85;transform:translateX(1%) scale(1.08)}}@keyframes twinkle{0%,70%,100%{opacity:0;transform:scale(.4)}74%,78%{opacity:.9;transform:scale(1)}83%{opacity:0}}@keyframes sweep{0%,68%{left:-35%}83%,100%{left:130%}}
+@media(prefers-reduced-motion:reduce){.light,.glint,.logo-sweep::after{animation:none}}
+</style>
+</head>
+<body>
+<main class="frame" aria-label="NÖMÄD animated Inferno livestream overlay">
+<div class="light skull s1"></div><div class="light skull s2"></div><div class="light skull s3"></div><div class="light skull s4"></div>
+<div class="light lava"></div><div class="light portal"></div><div class="light gem"></div>
+<img class="art" src="nomad-frame.png" alt="NÖMÄD Inferno frame">
+<div class="logo-sweep"></div>
+<div class="glint g1"></div><div class="glint g2"></div><div class="glint g3"></div><div class="glint g4"></div><div class="glint g5"></div>
+</main>
+<script>
+const params=new URLSearchParams(location.search);
+const speed=Number(params.get('speed'));
+if(Number.isFinite(speed)&&speed>=.25&&speed<=3)document.documentElement.style.setProperty('--speed',speed);
+</script>
+</body></html>
